@@ -5,3 +5,8 @@ export const messageListAtom = atom<Message[]>({
     key: "messageList",
     default: [],
 });
+
+export const messageLatestAtom = atom<Message>({
+    key: "messageLatest",
+    default: {content: ""},
+})

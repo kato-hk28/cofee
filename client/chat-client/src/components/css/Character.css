@@ -1,0 +1,19 @@
+#character-msg{
+    margin: 0;
+    color: whitesmoke;
+    opacity: 1;
+    font-size: 90%;
+    padding: 5px 10px;
+    background: rgb(67, 67, 67);
+    border: 2px solid whitesmoke;
+    border-radius: 5%;
+}
+/* .character-msg-appear {
+    animation: character-msg-appearing 1s forwards;
+}
+@keyframes character-msg-appearing {100%{opacity: 1;}}
+
+.character-msg-disappear {
+    animation: character-msg-disappearing 1s forwards;
+}
+@keyframes character-msg-disappearing {100%{border-color: skyblue; opacity: 0;}} */
