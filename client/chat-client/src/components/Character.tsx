@@ -1,13 +1,11 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import charimg from '../assets/character.jpeg'
 import "./css/Character.css"
-import { MessageLatest, messageLatestAtom } from "../state/messages"
+import { messageLatestAtom } from "../state/messages"
 import { useRecoilValue } from 'recoil';
 
 export const Character = (props) => {
-    const [visible, changeVisible] = useState(true);
     const [user, setUid] = useState(props.user);
-    const [latest, setLatest] = useState("");
 
     return (
         <div>
@@ -22,9 +20,9 @@ export const Character = (props) => {
 
 const Comment = (props) => {
     const recieveMsg = useRecoilValue(messageLatestAtom);
-    if(recieveMsg.user === props.user){
+    if(recieveMsg.User === props.user){
         return (
-            <div id='character-msg'>{ recieveMsg.content }</div>
+            <div id='character-msg'>{ recieveMsg.Message }</div>
         )
     }
     else{

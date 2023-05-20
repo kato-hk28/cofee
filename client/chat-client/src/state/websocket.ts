@@ -28,5 +28,5 @@ const connectWebsocketSelector = selector({
 
 export const websocketAtom = atom<WebSocket.w3cwebsocket>({
     key: "websocket",
-    default: connectWebsocketSelector,
+    default: new WebSocket.w3cwebsocket("ws://localhost:40/ws"), // dummy
 })

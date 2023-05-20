@@ -15,12 +15,13 @@ export const useMessageList = (): Message[] => {
         }
     );
 
-    socket.onmessage = (msg) => {
-        const msg_json = JSON.parse(msg.data as string);
-        console.log(msg_json);
-        const message: Message = { content: msg_json["content"], user: msg_json["user"] }; // TODO:useridを変える
-        updateMessageList(message);
-    }
+    // socket.onmessage = (msg) => {
+    //     console.log("onmessage");
+    //     const msg_json = JSON.parse(msg.data as string);
+    //     console.log(msg_json);
+    //     const message: Message = { Method: msg_json["Method"],  Message: msg_json["Message"], User: msg_json["User"], Num: msg_json["Num"] }; // TODO:useridを変える
+    //     updateMessageList(message);
+    // }
 
     return messageList;
 }

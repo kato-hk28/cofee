@@ -8,5 +8,10 @@ export const messageListAtom = atom<Message[]>({
 
 export const messageLatestAtom = atom<Message>({
     key: "messageLatest",
-    default: {content: "", user: 0},
+    default: {Method: "", Message: "",  User: -1, Num: -1},
+});
+
+export const userAtom = atom<Number>({
+    key: "user",
+    default: -1
 })
