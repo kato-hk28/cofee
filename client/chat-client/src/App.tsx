@@ -17,7 +17,7 @@ function App() {
 };
 
 const Characters = () => {
-  var characters = [<Character />, <Character />] 
+  var characters = [<Character user={0}/>, <Character user={1}/>] 
 
   const chars = [];
 

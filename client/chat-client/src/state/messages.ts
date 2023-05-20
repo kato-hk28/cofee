@@ -8,5 +8,5 @@ export const messageListAtom = atom<Message[]>({
 
 export const messageLatestAtom = atom<Message>({
     key: "messageLatest",
-    default: {content: ""},
+    default: {content: "", user: 0},
 })
