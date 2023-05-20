@@ -60,11 +60,15 @@ function App() {
   }
 
   return (
-    <div>
-      <h1>Simple Chat</h1>
+    <div style={{width: "100%"}}>
+      <h1>Caffetelia</h1>
+      <center>
       <Characters />
+      </center>
+      <center style={{ position: "absolute", bottom: "0", width: "100%"}}>
       <MessageInput />
-      <MessageList />
+
+      </center>
     </div>
   );
 };

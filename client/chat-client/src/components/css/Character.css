@@ -1,12 +1,14 @@
 #character-msg{
-    margin: 0;
-    color: whitesmoke;
+    margin: auto;
+    color: rgb(25, 19, 19);
     opacity: 1;
     font-size: 90%;
     padding: 5px 10px;
-    background: rgb(67, 67, 67);
-    border: 2px solid whitesmoke;
-    border-radius: 5%;
+    background: whitesmoke;
+    border: 2px solid orange;
+    border-radius: 10%;
+    width: 300px;
+    height: 50px;
 }
 /* .character-msg-appear {
     animation: character-msg-appearing 1s forwards;

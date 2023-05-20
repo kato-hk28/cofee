@@ -8,9 +8,9 @@ import { motion } from "framer-motion"
 
 function genRandomArray(rate){
     let array = [];
-    let length = 10;
+    let length = 30;
     for (let i = 0; i < length + rate * 3; i++){
-        array.push(Math.random() * 200);
+        array.push(Math.random() * 300 - 150);
     }
     return array;
 }
@@ -30,7 +30,7 @@ export const Character = (props) => {
             variants={variants}
             transition={{
                 repeat: Infinity,
-                duration: 10 * (user+1),
+                duration: 60,
                 repeatType: "mirror",
                 
                 // type: "spring",
