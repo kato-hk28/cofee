@@ -1,13 +1,14 @@
-import React from "react";
-import { useMessageList } from "../hooks/use-message-list";
+import { useRecoilValue } from "recoil";
+import { messageListAtom } from "../state/messages";
+
 
 export const MessageList = () => {
-    const messageList = useMessageList();
+    const messageList = useRecoilValue(messageListAtom);
 
     return (
         <div>
             {messageList.map((m, i) => (
-                <div key={i}>{m.content}</div>
+                <div key={i}>{m.Message}</div>
             ))}
         </div>
     );
