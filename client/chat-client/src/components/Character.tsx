@@ -3,18 +3,44 @@ import charimg from '../assets/character.jpeg'
 import "./css/Character.css"
 import { messageLatestAtom } from "../state/messages"
 import { useRecoilValue } from 'recoil';
+import ReactDOM from 'react-dom';
+import { motion } from "framer-motion"
+
+function genRandomArray(rate){
+    let array = [];
+    let length = 30;
+    for (let i = 0; i < length + rate * 3; i++){
+        array.push(Math.random() * 300 - 150);
+    }
+    return array;
+}
+
 
 export const Character = (props) => {
     const [user, setUid] = useState(props.user);
-
+    const variants = {
+        transition: {x: genRandomArray(user+1), y: genRandomArray(user+1)}
+    }
+    
     return (
-        <div>
-        <center>
-            <Comment user={ props.user }/>
-            <p>{ user }</p>
-            <img src={ charimg } id='character-icon' className='character-img'/>
-        </center>
-        </div>
+        <>
+        <motion.div
+            style={{}}
+            animate="transition"
+            variants={variants}
+            transition={{
+                repeat: Infinity,
+                duration: 60,
+                repeatType: "mirror",
+                
+                // type: "spring",
+                // damping: 3
+            }}
+        >
+        <Comment user={ props.user }/>
+        <img src={ charimg } id='character-icon' className='character-img' style={{zoom: 0.5}}/>
+        </motion.div>
+        </>
     );
 };
 
@@ -27,7 +53,7 @@ const Comment = (props) => {
     }
     else{
         return (
-            <div id='character-msg'></div>
+            <div></div>
         )
     }
 

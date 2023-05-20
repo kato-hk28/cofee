@@ -8,6 +8,8 @@ import { useRecoilState } from 'recoil';
 import { websocketAtom } from './state/websocket';
 import { Message } from './models/message';
 import { messageLatestAtom, messageListAtom, userAtom } from './state/messages';
+import charimg from './assets/character.jpeg'
+import * as React from 'react';
 
 
 function App() {
@@ -55,14 +57,18 @@ function App() {
             reject(err);
         };
     })
-}
+  }
 
   return (
-    <div>
-      <h1>Simple Chat</h1>
+    <div style={{width: "100%"}}>
+      <h1>Caffetelia</h1>
+      <center>
       <Characters />
+      </center>
+      <center style={{ position: "absolute", bottom: "0", width: "100%"}}>
       <MessageInput />
-      <MessageList />
+
+      </center>
     </div>
   );
 };
