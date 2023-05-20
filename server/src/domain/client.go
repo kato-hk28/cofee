@@ -1,6 +1,8 @@
 package domain
 
 import (
+	"encoding/json"
+	"fmt"
 	"log"
 
 	"github.com/gorilla/websocket"
@@ -9,6 +11,11 @@ import (
 type Client struct {
 	ws     *websocket.Conn
 	sendCh chan []byte
+}
+
+type MsgStruct struct {
+	Message string
+	User    int
 }
 
 func NewClient(ws *websocket.Conn) *Client {
@@ -42,11 +49,17 @@ func (c *Client) WriteLoop() {
 	for {
 		message := <-c.sendCh
 
+		msg_struct := MsgStruct{Message: string(message), User: 1}
+		msg_json, err := json.Marshal(msg_struct)
+
+		fmt.Println(string(msg_json))
+
 		w, err := c.ws.NextWriter(websocket.TextMessage)
 		if err != nil {
 			return
 		}
-		w.Write(message)
+
+		w.Write(msg_json)
 
 		if err := w.Close(); err != nil {
 			return

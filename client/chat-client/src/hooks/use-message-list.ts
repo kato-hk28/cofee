@@ -16,8 +16,9 @@ export const useMessageList = (): Message[] => {
     );
 
     socket.onmessage = (msg) => {
-        const content = JSON.parse(msg.data as string);
-        const message: Message = { content: content, user: 0 }; // TODO:useridを変える
+        const msg_json = JSON.parse(msg.data as string);
+        console.log(msg_json);
+        const message: Message = { content: msg_json["Message"], user: msg_json["User"] }; // TODO:useridを変える
         updateMessageList(message);
     }
 
