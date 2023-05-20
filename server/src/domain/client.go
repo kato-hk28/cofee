@@ -1,7 +1,6 @@
 package domain
 
 import (
-	"encoding/json"
 	"fmt"
 	"log"
 
@@ -11,11 +10,6 @@ import (
 type Client struct {
 	ws     *websocket.Conn
 	sendCh chan []byte
-}
-
-type MsgStruct struct {
-	Message string
-	User    int
 }
 
 func NewClient(ws *websocket.Conn) *Client {
@@ -37,6 +31,7 @@ func (c *Client) ReadLoop(broadCast chan<- []byte, unregister chan<- *Client) {
 			}
 			break
 		}
+		fmt.Println(string(jsonMsg))
 		broadCast <- jsonMsg
 	}
 }
@@ -49,17 +44,14 @@ func (c *Client) WriteLoop() {
 	for {
 		message := <-c.sendCh
 
-		msg_struct := MsgStruct{Message: string(message), User: 1}
-		msg_json, err := json.Marshal(msg_struct)
-
-		fmt.Println(string(msg_json))
+		fmt.Println(string(message))
 
 		w, err := c.ws.NextWriter(websocket.TextMessage)
 		if err != nil {
 			return
 		}
 
-		w.Write(msg_json)
+		w.Write(message)
 
 		if err := w.Close(); err != nil {
 			return
