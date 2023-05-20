@@ -8,6 +8,8 @@ import { useRecoilState } from 'recoil';
 import { websocketAtom } from './state/websocket';
 import { Message } from './models/message';
 import { messageLatestAtom, messageListAtom, userAtom } from './state/messages';
+import charimg from './assets/character.jpeg'
+import * as React from 'react';
 
 
 function App() {
@@ -55,7 +57,7 @@ function App() {
             reject(err);
         };
     })
-}
+  }
 
   return (
     <div>
