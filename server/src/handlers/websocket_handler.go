@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -12,6 +13,13 @@ import (
 
 type WebsocketHandler struct {
 	hub *domain.Hub
+}
+
+type SocketMsg struct {
+	Method  string
+	Message string
+	User    int
+	Num     int
 }
 
 func NewWebsocketHandler(hub *domain.Hub) *WebsocketHandler {
@@ -36,5 +44,20 @@ func (h *WebsocketHandler) Handle(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("create client")
 	go client.ReadLoop(h.hub.BroadcastCh, h.hub.UnRegisterCh)
 	go client.WriteLoop()
+
+	message := &SocketMsg{Method: "GetMe", Message: "", User: len(h.hub.Clients), Num: len(h.hub.Clients) + 1}
+	message_json, _ := json.Marshal(message)
+
+	writer, err := ws.NextWriter(websocket.TextMessage)
+	if err != nil {
+		return
+	}
+
+	writer.Write(message_json)
+
+	if err := writer.Close(); err != nil {
+		return
+	}
+
 	h.hub.RegisterCh <- client
 }
