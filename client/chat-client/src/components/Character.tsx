@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import charimg from '../assets/character.jpeg'
 import "./css/Character.css"
 import { MessageLatest, messageLatestAtom } from "../state/messages"
 import { useRecoilValue } from 'recoil';
 
 export const Character = () => {
+    const [visible, changeVisible] = useState(true);
+
     return (
         <div>
         <center>
