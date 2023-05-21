@@ -7,9 +7,10 @@ import * as WebSocket from "websocket"
 import { useRecoilState } from 'recoil';
 import { websocketAtom } from './state/websocket';
 import { Message } from './models/message';
-import { messageLatestAtom, messageListAtom, userAtom } from './state/messages';
-import charimg from './assets/character.jpeg'
+import { characterAtom, messageLatestAtom, messageListAtom, userAtom, volumeAtom } from './state/messages';
+import coffeeimg from './assets/coffee.svg'
 import * as React from 'react';
+import { motion } from "framer-motion"
 
 
 function App() {
@@ -17,25 +18,44 @@ function App() {
   const [user, setUser] = useRecoilState(userAtom)
   const [latest, setLatest] = useRecoilState(messageLatestAtom);
   const [messageList,setList] = useRecoilState(messageListAtom);
+  const [charnum, setChar] = useRecoilState(characterAtom);
+  const [Volume, setVolume] = useRecoilState(volumeAtom);
 
   useEffect (() => {
     (async() => {
       var socket = await connect()
+      let Iam : Number;
       setSocket(socket);
-      console.log("useEffect");
+      var ml: Message[] = [];
+      var vol: number = 0;
+
       socket.onmessage = (msg) => {
         console.log("use effect on message");
         const msg_json = JSON.parse(msg.data as string);
         console.log(msg_json);
-        const message: Message = { Method: msg_json["Method"],  Message: msg_json["Message"], User: msg_json["User"], Num: msg_json["Num"] };
+        const message: Message = { Method: msg_json["Method"],  Message: msg_json["Message"], User: msg_json["User"], Num: msg_json["Num"], Volume: msg_json["Volume"] };
 
         if(message.Method === "GetMe"){
           setUser(msg_json["User"]);
+          Iam = message.User;
+          setChar(message.Num);
         }
 
         if(message.Method === "SendMsg"){
-          setLatest(message);
-          setList([...messageList, message]);
+          console.log(Iam);
+          ml = ml.slice(0, message.User).concat(message).concat(ml.slice(message.User, -1))
+          setLatest(ml);
+          vol = message.Volume;
+          setVolume(vol);
+        }
+
+        if(message.Method === "SetNum"){
+          console.log("SendNum");
+          setChar(message.Num);
+        }
+
+        if(message.Method === "Disconnect"){
+          console.log("disconnect")
         }
       }
     })()
@@ -60,11 +80,31 @@ function App() {
   }
 
   return (
-    <div style={{width: "100%"}}>
-      <h1>Caffetelia</h1>
-      <center>
+    <div style={{width: "100%", height: "100%"}}>
+      <img src={coffeeimg} style={{ zoom: 0.7, position: 'fixed', inset: 0, margin: 'auto'}}/>
+      <motion.div
+        id="blank-box"
+        style={{ 
+          position: 'fixed',
+          inset: 0,
+          marginTop: 240 - Volume*20 + 'px',
+          width: '190px',
+          height:'340px',
+          // backgroundColor:'white',
+          backgroundColor:'white',
+          marginRight: '45.8%',
+          marginLeft: 'auto',
+        }}
+          // animate={{
+          //   y: -400
+          // }}
+          // transition={{
+          //   duration: 30
+          // }}
+        />
+      <div style={{ textAlign: 'center', padding: '300px 0', height: '500px' }}>
       <Characters />
-      </center>
+      </div>
       <center style={{ position: "absolute", bottom: "0", width: "100%"}}>
       <MessageInput />
 
@@ -74,12 +114,12 @@ function App() {
 };
 
 const Characters = () => {
-  var characters = [<Character user={0}/>, <Character user={1}/>] 
+  const [charnum, setCharnum] = useRecoilState(characterAtom);
 
   const chars = [];
 
-  for(const [i, character] of characters.entries()){
-    chars.push(<div>{character}</div>);
+  for(var i = 0; i < charnum; i++){
+    chars.push(<div style={{position: 'fixed', inset: 0, margin: 'auto'}}><Character user={i}/></div>);
   };
 
   return (

@@ -1,16 +1,16 @@
 import { useState } from 'react'
-import charimg from '../assets/character.jpeg'
+import charimg from '../assets/character.png'
 import "./css/Character.css"
 import { messageLatestAtom } from "../state/messages"
 import { useRecoilValue } from 'recoil';
 import ReactDOM from 'react-dom';
 import { motion } from "framer-motion"
 
-function genRandomArray(rate){
+function genRandomArray(rate, rate2){
     let array = [];
     let length = 30;
     for (let i = 0; i < length + rate * 3; i++){
-        array.push(Math.random() * 300 - 150);
+        array.push(Math.random() * 100 * rate2 - rate2 / 2 * 100);
     }
     return array;
 }
@@ -19,18 +19,18 @@ function genRandomArray(rate){
 export const Character = (props) => {
     const [user, setUid] = useState(props.user);
     const variants = {
-        transition: {x: genRandomArray(user+1), y: genRandomArray(user+1)}
+        transition: {x: genRandomArray(user+1, 10), y: genRandomArray(user+1, 3)}
     }
     
     return (
         <>
         <motion.div
-            style={{}}
+            style={{ marginTop: '300px' }}
             animate="transition"
             variants={variants}
             transition={{
                 repeat: Infinity,
-                duration: 60,
+                duration: 100,
                 repeatType: "mirror",
                 
                 // type: "spring",
@@ -38,7 +38,7 @@ export const Character = (props) => {
             }}
         >
         <Comment user={ props.user }/>
-        <img src={ charimg } id='character-icon' className='character-img' style={{zoom: 0.5}}/>
+        <img src={ charimg } id='character-icon' className='character-img' style={{zoom: 0.3}}/>
         </motion.div>
         </>
     );
@@ -46,9 +46,9 @@ export const Character = (props) => {
 
 const Comment = (props) => {
     const recieveMsg = useRecoilValue(messageLatestAtom);
-    if(recieveMsg.User === props.user){
+    if(recieveMsg[props.user] != undefined){
         return (
-            <div id='character-msg'>{ recieveMsg.Message }</div>
+            <div id='character-msg'>{ recieveMsg[props.user].Message }</div>
         )
     }
     else{
@@ -56,8 +56,6 @@ const Comment = (props) => {
             <div></div>
         )
     }
-
-
 }
 
 export default Comment;

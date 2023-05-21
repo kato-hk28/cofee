@@ -10,16 +10,30 @@ import (
 type Client struct {
 	ws     *websocket.Conn
 	sendCh chan []byte
+	user   int
 }
 
-func NewClient(ws *websocket.Conn) *Client {
+type SocketMsg struct {
+	Method  string
+	Message string
+	User    int
+	Num     int
+	Volume  int
+}
+
+func NewClient(ws *websocket.Conn, user int) *Client {
 	return &Client{
 		ws:     ws,
-		sendCh: make(chan []byte)}
+		sendCh: make(chan []byte),
+		user:   user,
+	}
 }
 
 func (c *Client) ReadLoop(broadCast chan<- []byte, unregister chan<- *Client) {
 	defer func() {
+		// disconnectMsg := &SocketMsg{Method: "Disconnect", Message: "", User: c.user, Num: -1}
+		// disconnectMsg_json, _ := json.Marshal(disconnectMsg)
+		// broadCast <- disconnectMsg_json
 		c.disconnect(unregister)
 	}()
 

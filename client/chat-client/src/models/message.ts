@@ -1,6 +1,7 @@
 export type Message = {
     Method: string;
     Message: string;
-    User: Number;
-    Num: Number;
+    User: number;
+    Num: number;
+    Volume: number;
 }
