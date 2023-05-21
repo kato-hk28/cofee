@@ -24,6 +24,8 @@ function App() {
       var socket = await connect()
       let Iam : Number;
       setSocket(socket);
+      var ml: Message[] = [];
+
       socket.onmessage = (msg) => {
         console.log("use effect on message");
         const msg_json = JSON.parse(msg.data as string);
@@ -38,11 +40,8 @@ function App() {
 
         if(message.Method === "SendMsg"){
           console.log(Iam);
-          setLatest(message);
-          // TODO:コンポーネントごとに参照先を変える必要がある
-          // if(Iam == message.User){
-          //   setLatest(message);
-          // }
+          ml = ml.slice(0, message.User).concat(message).concat(ml.slice(message.User, -1))
+          setLatest(ml);
         }
 
         if(message.Method === "SetNum"){

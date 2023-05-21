@@ -6,9 +6,14 @@ export const messageListAtom = atom<Message[]>({
     default: [],
 });
 
-export const messageLatestAtom = atom<Message>({
+// export const messageLatestAtom = atom<Message>({
+//     key: "messageLatest",
+//     default: {Method: "", Message: "",  User: -1, Num: -1},
+// });
+
+export const messageLatestAtom = atom<Message[]>({
     key: "messageLatest",
-    default: {Method: "", Message: "",  User: -1, Num: -1},
+    default: [],
 });
 
 export const userAtom = atom<Number>({

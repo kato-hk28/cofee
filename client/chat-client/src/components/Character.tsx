@@ -46,9 +46,9 @@ export const Character = (props) => {
 
 const Comment = (props) => {
     const recieveMsg = useRecoilValue(messageLatestAtom);
-    if(recieveMsg.User === props.user){
+    if(recieveMsg[props.user] != undefined){
         return (
-            <div id='character-msg'>{ recieveMsg.Message }</div>
+            <div id='character-msg'>{ recieveMsg[props.user].Message }</div>
         )
     }
     else{
@@ -56,8 +56,6 @@ const Comment = (props) => {
             <div></div>
         )
     }
-
-
 }
 
 export default Comment;
