@@ -16,12 +16,17 @@ export const messageLatestAtom = atom<Message[]>({
     default: [],
 });
 
-export const userAtom = atom<Number>({
+export const userAtom = atom<number>({
     key: "user",
     default: -1
 });
 
-export const characterAtom = atom<Number>({
+export const characterAtom = atom<number>({
     key: "caracter",
     default: 0,
 });
+
+export const volumeAtom = atom<number>({
+    key: "volume",
+    default: 0
+})

@@ -3,4 +3,5 @@ export type Message = {
     Message: string;
     User: number;
     Num: number;
+    Volume: number;
 }

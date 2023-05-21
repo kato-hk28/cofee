@@ -18,6 +18,7 @@ type SocketMsg struct {
 	Message string
 	User    int
 	Num     int
+	Volume  int
 }
 
 func NewClient(ws *websocket.Conn, user int) *Client {

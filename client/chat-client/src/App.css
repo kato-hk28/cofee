@@ -1,0 +1,17 @@
+/* #brank-box{
+    position: 'fixed';
+    inset: 0;
+    margin: 'auto';
+    width: '150px';
+    height:'200px';
+    background-color:'white';
+    z-index: 2;
+}
+
+#coffee{
+    zoom: 0.7;
+    position: 'fixed';
+    inset: 0;
+    margin: 'auto';
+    z-index: 1;
+} */
