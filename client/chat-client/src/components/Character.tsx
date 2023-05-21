@@ -19,7 +19,7 @@ function genRandomArray(rate, rate2){
 export const Character = (props) => {
     const [user, setUid] = useState(props.user);
     const variants = {
-        transition: {x: genRandomArray(user+1, 8), y: genRandomArray(user+1, 3)}
+        transition: {x: genRandomArray(user+1, 10), y: genRandomArray(user+1, 3)}
     }
     
     return (
