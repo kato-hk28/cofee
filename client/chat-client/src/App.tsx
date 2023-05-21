@@ -7,7 +7,7 @@ import * as WebSocket from "websocket"
 import { useRecoilState } from 'recoil';
 import { websocketAtom } from './state/websocket';
 import { Message } from './models/message';
-import { messageLatestAtom, messageListAtom, userAtom } from './state/messages';
+import { characterAtom, messageLatestAtom, messageListAtom, userAtom } from './state/messages';
 import charimg from './assets/character.jpeg'
 import * as React from 'react';
 
@@ -17,12 +17,13 @@ function App() {
   const [user, setUser] = useRecoilState(userAtom)
   const [latest, setLatest] = useRecoilState(messageLatestAtom);
   const [messageList,setList] = useRecoilState(messageListAtom);
+  const [charnum, setChar] = useRecoilState(characterAtom);
 
   useEffect (() => {
     (async() => {
       var socket = await connect()
+      let Iam : Number;
       setSocket(socket);
-      console.log("useEffect");
       socket.onmessage = (msg) => {
         console.log("use effect on message");
         const msg_json = JSON.parse(msg.data as string);
@@ -31,11 +32,26 @@ function App() {
 
         if(message.Method === "GetMe"){
           setUser(msg_json["User"]);
+          Iam = message.User;
+          setChar(message.Num);
         }
 
         if(message.Method === "SendMsg"){
+          console.log(Iam);
           setLatest(message);
-          setList([...messageList, message]);
+          // TODO:コンポーネントごとに参照先を変える必要がある
+          // if(Iam == message.User){
+          //   setLatest(message);
+          // }
+        }
+
+        if(message.Method === "SetNum"){
+          console.log("SendNum");
+          setChar(message.Num);
+        }
+
+        if(message.Method === "Disconnect"){
+          console.log("disconnect")
         }
       }
     })()
@@ -74,13 +90,18 @@ function App() {
 };
 
 const Characters = () => {
-  var characters = [<Character user={0}/>, <Character user={1}/>] 
+  const [charnum, setCharnum] = useRecoilState(characterAtom);
+  // var characters = [<Character user={0}/>, <Character user={1}/>]
+
 
   const chars = [];
 
-  for(const [i, character] of characters.entries()){
-    chars.push(<div>{character}</div>);
+  for(var i = 0; i < charnum; i++){
+    chars.push(<div><Character user={i}/></div>);
   };
+  // for(const [i, character] of characters.entries()){
+  //   chars.push(<div>{character}</div>);
+  // };
 
   return (
     <>

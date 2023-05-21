@@ -14,4 +14,9 @@ export const messageLatestAtom = atom<Message>({
 export const userAtom = atom<Number>({
     key: "user",
     default: -1
-})
+});
+
+export const characterAtom = atom<Number>({
+    key: "caracter",
+    default: 0,
+});

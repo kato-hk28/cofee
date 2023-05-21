@@ -6,11 +6,11 @@ import { useRecoilValue } from 'recoil';
 import ReactDOM from 'react-dom';
 import { motion } from "framer-motion"
 
-function genRandomArray(rate){
+function genRandomArray(rate, rate2){
     let array = [];
     let length = 30;
     for (let i = 0; i < length + rate * 3; i++){
-        array.push(Math.random() * 300 - 150);
+        array.push(Math.random() * 100 * rate2 - rate2 / 2 * 100);
     }
     return array;
 }
@@ -19,7 +19,7 @@ function genRandomArray(rate){
 export const Character = (props) => {
     const [user, setUid] = useState(props.user);
     const variants = {
-        transition: {x: genRandomArray(user+1), y: genRandomArray(user+1)}
+        transition: {x: genRandomArray(user+1, 8), y: genRandomArray(user+1, 3)}
     }
     
     return (
@@ -30,7 +30,7 @@ export const Character = (props) => {
             variants={variants}
             transition={{
                 repeat: Infinity,
-                duration: 60,
+                duration: 100,
                 repeatType: "mirror",
                 
                 // type: "spring",
