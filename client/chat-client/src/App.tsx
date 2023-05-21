@@ -8,7 +8,7 @@ import { useRecoilState } from 'recoil';
 import { websocketAtom } from './state/websocket';
 import { Message } from './models/message';
 import { characterAtom, messageLatestAtom, messageListAtom, userAtom } from './state/messages';
-import charimg from './assets/character.jpeg'
+import coffeeimg from './assets/coffee.svg'
 import * as React from 'react';
 
 
@@ -77,10 +77,10 @@ function App() {
 
   return (
     <div style={{width: "100%"}}>
-      <h1>Caffetelia</h1>
-      <center>
+      <img src={coffeeimg} style={{ zoom: 0.5, position: 'fixed', inset: 0, margin: 'auto'}}/>
+      <div style={{ textAlign: 'center', padding: '300px 0' }}>
       <Characters />
-      </center>
+      </div>
       <center style={{ position: "absolute", bottom: "0", width: "100%"}}>
       <MessageInput />
 

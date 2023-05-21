@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import charimg from '../assets/character.jpeg'
+import charimg from '../assets/character.png'
 import "./css/Character.css"
 import { messageLatestAtom } from "../state/messages"
 import { useRecoilValue } from 'recoil';
@@ -38,7 +38,7 @@ export const Character = (props) => {
             }}
         >
         <Comment user={ props.user }/>
-        <img src={ charimg } id='character-icon' className='character-img' style={{zoom: 0.5}}/>
+        <img src={ charimg } id='character-icon' className='character-img' style={{zoom: 0.3}}/>
         </motion.div>
         </>
     );

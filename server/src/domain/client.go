@@ -1,7 +1,6 @@
 package domain
 
 import (
-	"encoding/json"
 	"fmt"
 	"log"
 
@@ -31,9 +30,9 @@ func NewClient(ws *websocket.Conn, user int) *Client {
 
 func (c *Client) ReadLoop(broadCast chan<- []byte, unregister chan<- *Client) {
 	defer func() {
-		disconnectMsg := &SocketMsg{Method: "Disconnect", Message: "", User: c.user, Num: -1}
-		disconnectMsg_json, _ := json.Marshal(disconnectMsg)
-		broadCast <- disconnectMsg_json
+		// disconnectMsg := &SocketMsg{Method: "Disconnect", Message: "", User: c.user, Num: -1}
+		// disconnectMsg_json, _ := json.Marshal(disconnectMsg)
+		// broadCast <- disconnectMsg_json
 		c.disconnect(unregister)
 	}()
 
