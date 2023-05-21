@@ -1,4 +1,5 @@
 import { useSendMessage } from "../hooks/use-send-message";
+import sendimg from "../assets/send.png"
 import "./css/MessageInput.css"
 
 export const MessageInput = () => {
@@ -12,7 +13,7 @@ export const MessageInput = () => {
                 placeholder="new message"
                 style={{width: "90%", height: "100px"}}
             />
-        <button onClick={send} className="flatbutton"><span id="buttonImage">送信</span></button>
+        <button onClick={send} className="flatbutton"><img src={sendimg} style={{zoom: 0.1, marginLeft: '80px'}}/></button>
         </div>
     );
 };
