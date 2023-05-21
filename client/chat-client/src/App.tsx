@@ -75,9 +75,9 @@ function App() {
   }
 
   return (
-    <div style={{width: "100%"}}>
-      <img src={coffeeimg} style={{ zoom: 0.5, position: 'fixed', inset: 0, margin: 'auto'}}/>
-      <div style={{ textAlign: 'center', padding: '300px 0' }}>
+    <div style={{width: "100%", height: "100%"}}>
+      <img src={coffeeimg} style={{ zoom: 0.7, position: 'fixed', inset: 0, margin: 'auto'}}/>
+      <div style={{ textAlign: 'center', padding: '300px 0', height: '500px' }}>
       <Characters />
       </div>
       <center style={{ position: "absolute", bottom: "0", width: "100%"}}>
@@ -90,17 +90,12 @@ function App() {
 
 const Characters = () => {
   const [charnum, setCharnum] = useRecoilState(characterAtom);
-  // var characters = [<Character user={0}/>, <Character user={1}/>]
-
 
   const chars = [];
 
   for(var i = 0; i < charnum; i++){
-    chars.push(<div><Character user={i}/></div>);
+    chars.push(<div style={{position: 'fixed', inset: 0, margin: 'auto'}}><Character user={i}/></div>);
   };
-  // for(const [i, character] of characters.entries()){
-  //   chars.push(<div>{character}</div>);
-  // };
 
   return (
     <>

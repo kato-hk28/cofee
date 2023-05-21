@@ -10,9 +10,9 @@ export const MessageInput = () => {
                 onChange={(e) => setInput(e.target.value)}
                 value={input}
                 placeholder="new message"
-                style={{width: "90%", height: "150px"}}
+                style={{width: "90%", height: "100px"}}
             />
-        <button onClick={send} className="flatbutton"><span id="buttonImage"></span></button>
+        <button onClick={send} className="flatbutton"><span id="buttonImage">送信</span></button>
         </div>
     );
 };

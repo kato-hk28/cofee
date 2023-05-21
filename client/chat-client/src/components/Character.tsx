@@ -25,7 +25,7 @@ export const Character = (props) => {
     return (
         <>
         <motion.div
-            style={{}}
+            style={{ marginTop: '300px' }}
             animate="transition"
             variants={variants}
             transition={{
